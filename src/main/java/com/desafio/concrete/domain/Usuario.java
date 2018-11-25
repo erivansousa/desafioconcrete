@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -39,9 +40,9 @@ public class Usuario implements Serializable {
 	@Column(columnDefinition = "VARCHAR(255)")
 	private UUID token; // token de acesso
 
-	//@JsonIgnore
+	@ElementCollection
 	@OneToMany(mappedBy="usuario")
-	private List<Telefone> telefones;
+	private List<Telefone> phones;
 
 	public Usuario() {
 		super();
@@ -111,12 +112,16 @@ public class Usuario implements Serializable {
 		this.token = token;
 	}
 
-	public List<Telefone> getTelefones() {
-		return telefones;
+	public List<Telefone> getPhones() {
+		return phones;
 	}
 
-	public void setTelefones(List<Telefone> telefones) {
-		this.telefones = telefones;
+	public void setPhones(List<Telefone> telefones) {
+		this.phones = telefones;
+	}
+	
+	public void generateToken() {
+		this.token = UUID.randomUUID();
 	}
 
 	@Override

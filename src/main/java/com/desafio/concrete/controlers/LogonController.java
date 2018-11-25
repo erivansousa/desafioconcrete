@@ -1,27 +1,62 @@
 package com.desafio.concrete.controlers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.desafio.concrete.controlers.model.LoginRequest;
+import com.desafio.concrete.domain.Telefone;
+import com.desafio.concrete.domain.Usuario;
+import com.desafio.concrete.repositories.TelefoneRepository;
+import com.desafio.concrete.repositories.UsuarioRepository;
+import com.desafio.concrete.services.UsuarioService;
 
 @RestController
 @RequestMapping(value = "/logon")
 public class LogonController {
 	
-	@RequestMapping(value="/cadastro", method = RequestMethod.GET)
-	public ResponseEntity<?> cadastro() {
-		return null;
+	@Autowired
+	UsuarioService usService;
+	
+	/**
+	 * 
+	 * @param loginRequest
+	 * @return
+	 */
+	@RequestMapping(value="/cadastro", method = RequestMethod.POST)
+	public ResponseEntity<?> cadastro(@RequestBody Usuario usuario) {
+		
+		Usuario usr = usService.cadastrarUsuario(usuario);
+		
+		return ResponseEntity.ok().body(usr);
 	}
 	
-	@RequestMapping(value="/login", method = RequestMethod.GET)
-	public ResponseEntity<?> login() {
-		return null;
+	/**
+	 * 
+	 * @param loginRequest
+	 * @return
+	 */
+	@RequestMapping(value="/login", method = RequestMethod.POST)
+	public ResponseEntity<Usuario> login(@RequestBody LoginRequest loginRequest) {
+		
+		Usuario user = usService.login(loginRequest);
+		
+		return ResponseEntity.ok().body(user);
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	@RequestMapping(value="/perfil", method = RequestMethod.GET)
 	public ResponseEntity<?> perfil() {
 		return null;
 	}
 
+	
 }
+
+

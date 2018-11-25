@@ -11,15 +11,19 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class ResourceExceptionHandler {
 
-	@ExceptionHandler(UsuarioNaoEncontradoException.class)
-	public ResponseEntity<StandardError> objectNotFound(UsuarioNaoEncontradoException e, HttpServletRequest request) {
-		StandardError err = new StandardError(e.getMessage());
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
-	}
-
-	@ExceptionHandler(UsuarioNaoAutenticadoException.class)
-	public ResponseEntity<StandardError> autenticacaoNaoAutorizada(UsuarioNaoAutenticadoException e, HttpServletRequest request) {
-		StandardError err = new StandardError(e.getMessage());
-		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(err);
+	@ExceptionHandler(RuntimeException.class)
+	public ResponseEntity<StandardError> autenticacaoNaoAutorizada(RuntimeException e, HttpServletRequest request) {
+		HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
+		StandardError err;
+		
+		if(e instanceof UsuarioNaoEncontradoException)
+			status = HttpStatus.UNAUTHORIZED;
+		else if(e instanceof UsuarioNaoAutenticadoException)
+			status = HttpStatus.UNAUTHORIZED;
+		else if(e instanceof EmailJaCadastradoException)
+			status = HttpStatus.CONFLICT;
+			
+		err = new StandardError(e.getMessage());
+		return ResponseEntity.status(status).body(err);
 	}
 }

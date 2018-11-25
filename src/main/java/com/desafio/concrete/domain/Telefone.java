@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Telefone implements Serializable {
 
@@ -18,12 +20,14 @@ public class Telefone implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@JsonIgnore
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	private String telefone;
+	private String number;
 	private Integer ddd;
 
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "usuario_id")
 	private Usuario usuario;
@@ -40,12 +44,12 @@ public class Telefone implements Serializable {
 		this.id = id;
 	}
 
-	public String getTelefone() {
-		return telefone;
+	public String getNumber() {
+		return number;
 	}
 
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
+	public void setNumber(String number) {
+		this.number = number;
 	}
 
 	public Integer getDdd() {

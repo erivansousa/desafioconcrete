@@ -13,6 +13,6 @@ import com.desafio.concrete.domain.Usuario;
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, UUID>{
 
-	@Query("SELECT u FROM usuario u where u.email = :email") 
+	@Query("SELECT u FROM Usuario u where u.email = :email") 
     public Optional<Usuario> findByEmail(@Param("email") String email);
 }
