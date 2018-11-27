@@ -15,4 +15,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, UUID>{
 
 	@Query("SELECT u FROM Usuario u where u.email = :email") 
     public Optional<Usuario> findByEmail(@Param("email") String email);
+	
+	@Query("SELECT u FROM Usuario u where u.token = :token") 
+    public Optional<Usuario> findByToken(@Param("token") UUID token);
 }

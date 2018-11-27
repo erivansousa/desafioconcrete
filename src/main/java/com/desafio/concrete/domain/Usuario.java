@@ -15,6 +15,8 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 public class Usuario implements Serializable {
 
@@ -80,6 +82,7 @@ public class Usuario implements Serializable {
 		this.password = password;
 	}
 
+	@JsonFormat(pattern = "dd-MM-yyyy")
 	public LocalDate getCreated() {
 		return created;
 	}
@@ -88,6 +91,7 @@ public class Usuario implements Serializable {
 		this.created = created;
 	}
 
+	@JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
 	public LocalDateTime getLastLogin() {
 		return lastLogin;
 	}
@@ -96,6 +100,7 @@ public class Usuario implements Serializable {
 		this.lastLogin = lastLogin;
 	}
 
+	@JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
 	public LocalDateTime getModified() {
 		return modified;
 	}

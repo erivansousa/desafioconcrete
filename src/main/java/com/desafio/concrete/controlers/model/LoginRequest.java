@@ -1,5 +1,13 @@
 package com.desafio.concrete.controlers.model;
 
+/**
+ * Modelo da requisição do endpoint de login
+ * 
+ * {"email": "???", "password": "???"}
+ * 
+ * @author erivan
+ *
+ */
 public class LoginRequest {
 
 	private String email;
