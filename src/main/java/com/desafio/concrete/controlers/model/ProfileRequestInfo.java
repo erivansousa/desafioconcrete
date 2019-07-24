@@ -1,7 +1,7 @@
 package com.desafio.concrete.controlers.model;
 
 /**
- * Modelo da requisição do endpoint de perfil
+ * Modelo da requisicao do endpoint de perfil
  * 
  *  {"usrId": "UUID", "token": "UUID"}
  *  

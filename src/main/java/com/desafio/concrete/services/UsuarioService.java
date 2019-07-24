@@ -34,7 +34,7 @@ public class UsuarioService {
 
 	/**
 	 * Cadastra um novo usuario no banco de dados e retorna o perfil do usuario gerado.	 * 
-	 * Caso o e-mail já exista, retorna erro com a mensagem "E-mail já existente"
+	 * Caso o e-mail ja exista, retorna erro com a mensagem "E-mail ja existente"
 	 * 
 	 * @param email
 	 * @return
@@ -71,9 +71,9 @@ public class UsuarioService {
 	
 	/**
 	 * 
-	 * Caso o e-mail e a senha correspondam a um usuário existente, retornar igual ao endpoint de Criação; 
-	 * Caso o e-mail não exista, retornar erro com status apropriado mais a mensagem "Usuário e/ou senha inválidos";
-	 * Caso o e-mail exista mas a senha não bata, retornar o status apropriado 401 mais a mensagem "Usuário e/ou senha inválidos";
+	 * Caso o e-mail e a senha correspondam a um usuario existente, retornar igual ao endpoint de Criacao; 
+	 * Caso o e-mail nao exista, retornar erro com status apropriado mais a mensagem "Usuario e/ou senha invalidos";
+	 * Caso o e-mail exista mas a senha nao bata, retornar o status apropriado 401 mais a mensagem "Usuario e/ou senha invalidos";
 	 * 
 	 * @param email
 	 * @return
@@ -81,16 +81,16 @@ public class UsuarioService {
 	 */
 	public Usuario login(LoginRequest loginInfo) throws UsuarioNaoEncontradoException {
 
-		// verifica se o email está cadastrado
+		// verifica se o email esta cadastrado
 		Optional<Usuario> obj = usrRepo.findByEmail(loginInfo.getEmail());
 
-		// Caso não tenha sido encontrado cadastro com o email informado, lança excessão
-		Usuario usr = obj.orElseThrow(() -> new UsuarioNaoEncontradoException("Usuário e/ou senha inválidos"));
+		// Caso nao tenha sido encontrado cadastro com o email informado, lanca excessao
+		Usuario usr = obj.orElseThrow(() -> new UsuarioNaoEncontradoException("Usuario e/ou senha invalidos"));
 
 		// Existindo cadastro, verifica se a senha informada corresponde a senha
 		// cadastrada
 		if (!usr.getPassword().equals(loginInfo.getPassword())) {
-			throw new UsuarioNaoAutenticadoException("Usuário e/ou senha inválidos");
+			throw new UsuarioNaoAutenticadoException("Usuario e/ou senha invalidos");
 		}
 
 		// atualiza a data de ultimo acesso
@@ -104,11 +104,11 @@ public class UsuarioService {
 	
 	/**
 	 * 
-	 * Caso o token não exista, retornar erro com status apropriado com a mensagem "Não autorizado".
-	 * Caso o token exista, buscar o usuário pelo id passado no path e comparar se o token no modelo é igual ao token passado no header.
-	 * Caso não seja o mesmo token, retornar erro com status apropriado e mensagem "Não autorizado"
-	 * Caso seja o mesmo token, verificar se o último login foi a MENOS que 30 minutos atrás. Caso não seja a MENOS que 30 minutos atrás, 
-	 * retornar erro com status apropriado com mensagem "Sessão inválida".
+	 * Caso o token nao exista, retornar erro com status apropriado com a mensagem "Nao autorizado".
+	 * Caso o token exista, buscar o usuario pelo id passado no path e comparar se o token no modelo e igual ao token passado no header.
+	 * Caso nao seja o mesmo token, retornar erro com status apropriado e mensagem "Nao autorizado"
+	 * Caso seja o mesmo token, verificar se o ultimo login foi a MENOS que 30 minutos atras. Caso nao seja a MENOS que 30 minutos atras, 
+	 * retornar erro com status apropriado com mensagem "Sessao invalida".
 	 * 
 	 * @param profileInfo
 	 * @return
@@ -117,15 +117,15 @@ public class UsuarioService {
 		// verifica se o token informado existe
 		Optional<Usuario> obj = usrRepo.findByToken(UUID.fromString(profileInfo.getToken()));
 
-		// Caso não tenha sido encontrado nenhum token, lança excessão
-		Usuario usr = obj.orElseThrow(() -> new TokenNaoEncontradoException("Não Autorizado"));
+		// Caso não tenha sido encontrado nenhum token, lança excessao
+		Usuario usr = obj.orElseThrow(() -> new TokenNaoEncontradoException("Nao Autorizado"));
 		
 		if(!usr.getId().equals(UUID.fromString(profileInfo.getUsrId()))) {
-			throw new SessaoInvalidaException(HttpStatus.UNAUTHORIZED, "Não Autorizado");
+			throw new SessaoInvalidaException(HttpStatus.UNAUTHORIZED, "Nao Autorizado");
 		}
 		
 		if(LocalDateTime.now().minusMinutes(SESSION_TIMEOUT).compareTo(usr.getLastLogin()) > 0) {
-			throw new SessaoInvalidaException(HttpStatus.GONE, "Sessão inválida");
+			throw new SessaoInvalidaException(HttpStatus.GONE, "Sessao invalida");
 		}
 		
 		

@@ -3,7 +3,7 @@ package com.desafio.concrete.exceptions;
 import java.io.Serializable;
 
 /**
- * Classe de mensagem de erro padrão pra manter o retorno das mensagens de erro
+ * Classe de mensagem de erro padrao pra manter o retorno das mensagens de erro
  * com o mesmo formato
  * 
  * @author erivan

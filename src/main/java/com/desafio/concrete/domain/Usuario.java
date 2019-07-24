@@ -35,8 +35,8 @@ public class Usuario implements Serializable {
 	private String email;
 	private String password;
 
-	private LocalDate created; // data da última atualização do usuário
-	private LocalDateTime lastLogin; // data do último login
+	private LocalDate created; // data da ultima atualizacao do usuario
+	private LocalDateTime lastLogin; // data do ultimo login
 	private LocalDateTime modified;
 	
 	@Column(columnDefinition = "VARCHAR(255)")

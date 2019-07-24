@@ -1,7 +1,7 @@
 package com.desafio.concrete.controlers.model;
 
 /**
- * Modelo da requisição do endpoint de login
+ * Modelo da requisicao do endpoint de login
  * 
  * {"email": "???", "password": "???"}
  * 
