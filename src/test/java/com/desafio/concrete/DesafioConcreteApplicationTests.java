@@ -10,7 +10,6 @@ import com.desafio.concrete.controlers.LogonController;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@WebMvcTest(value = LogonController.class)
 public class DesafioConcreteApplicationTests {
 
 	@Test
