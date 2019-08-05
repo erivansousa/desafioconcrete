@@ -50,7 +50,7 @@ public class UsuarioService {
 		usr = usrRepo.findByEmail(usuario.getEmail()).orElse(null);
 		
 		if (usr != null) {
-			throw new EmailJaCadastradoException("E-mail já existente");
+			throw new EmailJaCadastradoException("E-mail ja existente");
 		}
 		// ---------------------
 		
@@ -117,7 +117,7 @@ public class UsuarioService {
 		// verifica se o token informado existe
 		Optional<Usuario> obj = usrRepo.findByToken(UUID.fromString(profileInfo.getToken()));
 
-		// Caso não tenha sido encontrado nenhum token, lança excessao
+		// Caso nao tenha sido encontrado nenhum token, lanca excessao
 		Usuario usr = obj.orElseThrow(() -> new TokenNaoEncontradoException("Nao Autorizado"));
 		
 		if(!usr.getId().equals(UUID.fromString(profileInfo.getUsrId()))) {
